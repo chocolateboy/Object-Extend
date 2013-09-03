@@ -163,6 +163,12 @@ that the object has been extended. This class name is accessible via the C<EIGEN
 
 =item * L<MouseX::SingletonMethod|MouseX::SingletonMethod>
 
+=begin html
+
+<li><a href="https://github.com/tom-lpsd/p5-singleton-method">SingletonMethod</a></li>
+
+=end html
+
 =back
 
 =head1 AUTHOR
