@@ -11,6 +11,7 @@ WriteMakefile(
     VERSION_FROM   => 'lib/Object/Extend.pm',
     PREREQ_PM      => {
         'Scalar::Util' => 0,
+        'Storable'     => '2.05', # coderef deparsing
     },
     ABSTRACT_FROM  => 'lib/Object/Extend.pm',
     AUTHOR         => 'chocolateboy <chocolate@cpan.org>',

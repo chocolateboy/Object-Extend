@@ -1,4 +1,4 @@
-Object-Extend version 0.1.1
+Object-Extend version 0.2.0
 ===========================
 
 This module allows objects to be extended with per-object methods, similar to the use of
@@ -20,6 +20,7 @@ DEPENDENCIES
 This module requires these other modules and libraries:
 
   Scalar::Util
+  Storable
   Test::More
 
 COPYRIGHT AND LICENCE

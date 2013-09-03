@@ -3,11 +3,11 @@
 - [NAME](#name)
 - [SYNOPSIS](#synopsis)
 - [DESCRIPTION](#description)
-    - [EXPORT](#export)
-        - [extend](#extend)
-        - [with](#with)
+    - [EXPORTS](#exports)
+	- [extend](#extend)
+	- [with](#with)
     - [METHODS](#methods)
-        - [EIGENCLASS](#eigenclass)
+	- [SINGLETON](#singleton)
 - [VERSION](#version)
 - [SEE ALSO](#see-also)
 - [AUTHOR](#author)
@@ -38,12 +38,12 @@ This module allows objects to be extended with per-object methods, similar to th
 in Ruby. Object methods are added to an object-specific shim class (known as an `eigenclass`),
 which extends the object's original class. The original class is left unchanged.
 
-### EXPORT
+### EXPORTS
 
 #### extend
 
 `extend` takes an object and a hash or hashref of method names and method values (coderefs) and adds
-the methods to the object's eigenclass. The object is then blessed into the eigenclass and returned.
+the methods to the object's shim class. The object is then blessed into this class and returned.
 
 It can be used in standalone statements:
 
@@ -62,7 +62,7 @@ If a new object is needed it can be handled manually e.g.:
     extend($object2, foo => sub { ... })->foo;
     return extend($object3 => ...);
 
-Objects can be extended multiple times with the same or different methods:
+Objects can be extended multiple times with new or overridden methods:
 
     my $object = Foo->new;
 
@@ -70,11 +70,11 @@ Objects can be extended multiple times with the same or different methods:
     $object->foo;
 
     # override the original method
-    extend $object => foo => sub { ... };
+    extend $object, foo => sub { ... };
     $object->foo;
 
     # add a new method
-    extend $object => bar => sub { ... };
+    extend $object, bar => sub { ... };
     $object->bar;
 
 #### with
@@ -88,16 +88,16 @@ returns a hashref of method names/coderefs:
 
 ### METHODS
 
-#### EIGENCLASS
+#### SINGLETON
 
 Every extended object's shim class includes an additional (empty) class in its `@ISA` which indicates
-that the object has been extended. This class name is accessible via the `EIGENCLASS` method e.g.:
+that the object has been extended. The name of this class can be accessed via the `SINGLETON` method e.g.:
 
-    if ($object->isa(Object::Extend->EIGENCLASS)) { ... } # object extended with object-specific methods
+    if ($object->isa(Object::Extend->SINGLETON)) { ... } # object extended with object-specific methods
 
 ## VERSION
 
-0.1.1
+0.2.0
 
 ## SEE ALSO
 

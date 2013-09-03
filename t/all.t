@@ -9,7 +9,7 @@ use constant BAZ_QUUX => {
 };
 
 use Scalar::Util qw(refaddr);
-use Test::More tests => 113;
+use Test::More tests => 110;
 
 # do this at compile time so that we don't get
 # "Useless use of anonymous hash ({}) in void context"
@@ -42,12 +42,12 @@ sub check_methods($;$) {
 
     if ($extended) {
         isnt ref($object), __PACKAGE__;
-        isa_ok $object, Object::Extend->EIGENCLASS;
+        isa_ok $object, Object::Extend->SINGLETON;
         is $object->baz, 'Baz';
         is $object->quux, 'Quux';
     } else {
         is ref($object), __PACKAGE__;
-        ok !$object->isa(Object::Extend->EIGENCLASS);
+        ok !$object->isa(Object::Extend->SINGLETON);
         ok !$object->can('baz');
         ok !$object->can('quux');
     }
@@ -61,21 +61,18 @@ check_methods($object1);
 # add some methods
 extend $object1 => BAZ_QUUX;
 check_methods($object1, 1);
-my $object1_eigenclass = ref($object1);
 ok refaddr($object1) == $object1_refaddr;
 
 # make sure there's no change (and no error) when adding
 # the same methods
 extend $object1 => BAZ_QUUX;
 check_methods($object1, 1);
-is ref($object1), $object1_eigenclass;
 ok refaddr($object1) == $object1_refaddr;
 
 # confirm that the eigenclass is the same if we add a new method
 # to an already extended object
-extend $object1 => { %{ BAZ_QUUX() }, extra => sub { 'Extra' } };
+extend $object1 => { extra => sub { 'Extra' } };
 check_methods($object1, 1);
-is ref($object1), $object1_eigenclass;
 ok refaddr($object1) == $object1_refaddr;
 is $object1->extra, 'Extra';
 
@@ -120,4 +117,3 @@ check_methods($object7, 1);
 ok refaddr($object6) == $object6_refaddr;
 ok refaddr($object7) == $object7_refaddr;
 ok refaddr($object6) != refaddr($object7);
-isnt ref($object6), ref($object7); # different eigenclasses

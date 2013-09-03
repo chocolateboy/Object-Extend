@@ -4,25 +4,84 @@ use 5.006;
 use strict;
 use warnings;
 use base qw(Exporter);
-use constant EIGENCLASS => sprintf('%s::_Eigenclass', __PACKAGE__);
 
-use Scalar::Util qw(refaddr);
+use constant {
+    SINGLETON   => sprintf('%s::_Singleton', __PACKAGE__ ),
+    METHOD_NAME => qr{^[a-zA-Z_]\w*$},
+};
+
+use B qw(perlstring);
+use Carp qw(cluck confess);
+use Scalar::Util qw(blessed refaddr);
+use Storable qw(freeze);
 
 our @EXPORT_OK = qw(extend with);
-our $VERSION = '0.1.1';
+our $VERSION = '0.2.0';
 
-# given an object, return an object-specific class name
-sub _eigenclass($) {
-    sprintf '%s::_%0x', EIGENCLASS, refaddr($_[0]);
+my $ID = 0;
+my %CACHE;
+
+# find/create a unique class name for the supplied object's class/methods combination.
+#
+# Eigenclasses are immutable i.e. once an eigenclass has been created,
+# its @ISA and installed methods never change. This means we can reuse/recycle
+# an eigenclass if we're passed the same superclass/methods combo.
+#
+# Note: we need to identify the subs in the method hash by value (deparse)
+# rather than by reference (refaddr), since ref addresses can be recycled
+# (and frequently are for anonymous subs).
+#
+# Note: the SINGLETON class added to the eigenclass's @ISA doesn't
+# implement any methods: we just use it as metadata to indicate that
+# the object has been extended.
+
+sub _eigenclass($$) {
+    my ($object, $methods) = @_;
+    my $class = ref($object);
+    my $new = 1;
+    my $key = do {
+        no warnings qw(once);
+        local $Storable::Deparse = 1;
+        freeze [ $class, %$methods ];
+    };
+
+    my $eigenclass = $CACHE{$key};
+
+    if ($eigenclass) {
+        $new = 0;
+    } else {
+        $eigenclass = sprintf '%s::_%x', SINGLETON, ++$ID;
+        $CACHE{$key} = $eigenclass;
+    }
+
+    if ($new) {
+        if ($object->isa(SINGLETON)) {
+            _set_isa($eigenclass, [ $class ]);
+        } else {
+            _set_isa($eigenclass, [ $class, SINGLETON ]);
+        }
+
+        while (my ($name, $sub) = each(%$methods)) {
+            _install_sub("$eigenclass\::$name", $sub);
+        }
+    }
+
+    return $eigenclass;
 }
 
 # install the supplied sub in the the supplied class.
 # "extend" is a pretty clear statement of intent, so
 # we don't issue a warning if the sub already exists
+#
+# XXX if we used Sub::Exporter (or similar), we could
+# allow the redefine warning to be enabled e.g.:
+#
+#     use Object::Extend extend => { warn_on_redefine => 1 };
+
 sub _install_sub($$) {
     my ($class, $sub) = @_;
-    no strict 'refs';
     no warnings 'redefine';
+    no strict 'refs';
     *$class = $sub;
 }
 
@@ -33,33 +92,93 @@ sub _set_isa($$) {
     *{"$class\::ISA"} = $isa;
 }
 
+# return true if $ref ISA $class - works with non-references, unblessed references and objects
+sub _isa($$) {
+    my ($ref, $class) = @_;
+    return blessed($ref) ? $ref->isa($class) : ref($ref) eq $class;
+}
+
+# confess with a message whose string parameters are quoted
+sub _error($;@) {
+    my $template = shift;
+    my @args = map { defined($_) ? perlstring($_) : 'undef' } @_;
+    confess sprintf($template, @args);
+}
+
+# sanity check the arguments to extend
+sub _validate(@) {
+    my $object = shift;
+
+    unless (blessed $object) {
+        _error(
+            "invalid 'object' parameter: expected blessed reference, got: %s",
+            ref($object)
+        );
+    }
+
+    my $methods;
+
+    if (@_ == 1) {
+        $methods = shift;
+    } elsif (@_ % 2 == 0) {
+        $methods = { @_ };
+    }
+
+    unless (_isa($methods, 'HASH')) {
+        _error(
+            "invalid 'methods' parameter: expected a hashref, got: %s",
+            ref($methods)
+        );
+    }
+
+    for my $name (keys %$methods) {
+        if (!defined($name)) {
+            _error 'invalid method name (undef)';
+        } elsif ($name !~ METHOD_NAME) {
+            _error(
+                'invalid method name (%s): name must match %s',
+                $name,
+                METHOD_NAME
+            );
+        } else {
+            my $method = $methods->{$name};
+
+            unless (_isa($method, 'CODE')) {
+                _error(
+                    'invalid method value for %s: expected a coderef, got: %s',
+                    $name,
+                    ref($method),
+                );
+            }
+        }
+    }
+
+    return ($object, $methods);
+}
+
 # dummy sub to optionally make the syntax
 # a bit more DSL-ish: extend $object => with ...
-sub with($) { $_[0] }
+sub with($) {
+    my $methods = shift;
 
-# for regular (unextended) objects, a) create an object-specific class
-# (eigenclass) and add the supplied methods to it b) set its @ISA to
-# [ ref($object), EIGENCLASS ] and c) bless the object into this new class.
-#
-# if an object has already been extended, just add the supplied
-# methods to its eigenclass.
-#
-# Note the EIGENCLASS class added to the eigenclass's @ISA doesn't
-# implement any methods: we just use it as metadata to indicate that
-# the object has already been extended.
+    unless (_isa($methods, 'HASH')) {
+        _error(
+            "invalid 'methods' parameter: expected a hashref, got: %s",
+           ref($methods)
+        );
+    }
+
+    return $methods;
+}
+
+# find/create an eigenclass for the object's class/methods and bless the object into it
 sub extend($;@) {
-    my $object = shift;
-    my $methods = @_ == 1 ? shift : { @_ };
-    my $eigenclass = _eigenclass($object);
+    my ($object, $methods) = _validate(@_);
 
-    unless ($object->isa(EIGENCLASS)) {
-        _set_isa($eigenclass, [ ref($object), EIGENCLASS ]);
+    if (%$methods) {
+        my $eigenclass = _eigenclass($object, $methods);
         bless $object, $eigenclass;
-    }
-
-    while (my ($name, $sub) = each(%$methods)) {
-        _install_sub("$eigenclass\::$name", $sub);
-    }
+    } # else return the original object unchanged
 
     return $object;
 }
@@ -91,7 +210,7 @@ L<singleton methods|http://madebydna.com/all/code/2011/06/24/eigenclasses-demyst
 in Ruby. Object methods are added to an object-specific shim class (known as an C<eigenclass>),
 which extends the object's original class. The original class is left unchanged.
 
-=head2 EXPORT
+=head2 EXPORTS
 
 =head3 extend
 
@@ -115,7 +234,7 @@ If a new object is needed it can be handled manually e.g.:
     extend($object2, foo => sub { ... })->foo;
     return extend($object3 => ...);
 
-Objects can be extended multiple times with the same or different methods:
+Objects can be extended multiple times with new or overridden methods:
 
     my $object = Foo->new;
 
@@ -123,11 +242,11 @@ Objects can be extended multiple times with the same or different methods:
     $object->foo;
 
     # override the original method
-    extend $object => foo => sub { ... };
+    extend $object, foo => sub { ... };
     $object->foo;
 
     # add a new method
-    extend $object => bar => sub { ... };
+    extend $object, bar => sub { ... };
     $object->bar;
 
 =head3 with
@@ -141,16 +260,16 @@ returns a hashref of method names/coderefs:
 
 =head2 METHODS
 
-=head3 EIGENCLASS
+=head3 SINGLETON
 
 Every extended object's shim class includes an additional (empty) class in its C<@ISA> which indicates
-that the object has been extended. This class name is accessible via the C<EIGENCLASS> method e.g.:
+that the object has been extended. The name of this class can be accessed via the C<SINGLETON> method e.g.:
 
-    if ($object->isa(Object::Extend->EIGENCLASS)) { ... } # object extended with object-specific methods
+    if ($object->isa(Object::Extend->SINGLETON)) { ... } # object extended with object-specific methods
 
 =head1 VERSION
 
-0.1.1
+0.2.0
 
 =head1 SEE ALSO
 
