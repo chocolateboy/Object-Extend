@@ -1,10 +1,10 @@
 Object-Extend version 0.1.1
 ===========================
 
-This module allows objects to be extended with per-object methods in a similar manner to
-singleton methods in Ruby and object wrappers in JavaScript libraries such as jQuery.
-Object methods are added to an object-specific shim class (known as an eigenclass) which
-extends the object's original class. The original class is left unchanged.
+This module allows objects to be extended with per-object methods, similar to the use of
+singleton methods in Ruby. Object methods are added to an object-specific shim class
+(known as an "eigenclass"), which extends the object's original class. The original class
+is left unchanged.
 
 INSTALLATION
 

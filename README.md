@@ -33,11 +33,10 @@ Object::Extend - add and override per-object methods
 
 ## DESCRIPTION
 
-This module allows objects to be extended with per-object methods in a similar manner to
+This module allows objects to be extended with per-object methods, similar to the use of
 [singleton methods](http://madebydna.com/all/code/2011/06/24/eigenclasses-demystified.html)
-in Ruby and object wrappers in JavaScript libraries such as jQuery.
-Object methods are added to an object-specific shim class (known as an `eigenclass`) which
-extends the object's original class. The original class is left unchanged.
+in Ruby. Object methods are added to an object-specific shim class (known as an `eigenclass`),
+which extends the object's original class. The original class is left unchanged.
 
 ### EXPORT
 
@@ -109,7 +108,7 @@ that the object has been extended. This class name is accessible via the `EIGENC
 
 ## AUTHOR
 
-chocolateboy <chocolate@cpan.org>
+chocolateboy
 
 ## COPYRIGHT AND LICENSE
 
