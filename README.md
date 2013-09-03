@@ -108,7 +108,7 @@ that the object has been extended. This class name is accessible via the `EIGENC
 
 ## AUTHOR
 
-chocolateboy <chocolate@cpan.org>
+[chocolateboy](mailto:chocolate@cpan.org)
 
 ## COPYRIGHT AND LICENSE
 
