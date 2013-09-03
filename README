@@ -1,7 +1,10 @@
-Object-Extend version 0.1.0
-==========================
+Object-Extend version 0.1.1
+===========================
 
-This module allows Ruby (and JavaScript) style "singleton methods" to be added to Perl objects. Singleton methods are added to an object-specific class (the object's C<eigenclass>) which extends the object's original class. The original class is left unchanged.
+This module allows objects to be extended with per-object methods in a similar manner to
+singleton methods in Ruby and object wrappers in JavaScript libraries such as jQuery.
+Object methods are added to an object-specific shim class (known as an eigenclass) which
+extends the object's original class. The original class is left unchanged.
 
 INSTALLATION
 
@@ -16,8 +19,8 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-  Test::More
   Scalar::Util
+  Test::More
 
 COPYRIGHT AND LICENCE
 

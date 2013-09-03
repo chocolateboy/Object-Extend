@@ -9,7 +9,7 @@ use constant EIGENCLASS => sprintf('%s::_Eigenclass', __PACKAGE__);
 use Scalar::Util qw(refaddr);
 
 our @EXPORT_OK = qw(extend with);
-our $VERSION = '0.1.0';
+our $VERSION = '0.1.1';
 
 # given an object, return an object-specific class name
 sub _eigenclass($) {
@@ -38,10 +38,10 @@ sub _set_isa($$) {
 sub with($) { $_[0] }
 
 # for regular (unextended) objects, a) create an object-specific class
-# (eigenclass) b) set its @ISA to [ ref($object), EIGENCLASS ] and
-# c) bless the object into this new class.
+# (eigenclass) and add the supplied methods to it b) set its @ISA to
+# [ ref($object), EIGENCLASS ] and c) bless the object into this new class.
 #
-# if an object has already been extended, add the supplied
+# if an object has already been extended, just add the supplied
 # methods to its eigenclass.
 #
 # Note the EIGENCLASS class added to the eigenclass's @ISA doesn't
@@ -86,18 +86,17 @@ Object::Extend - add and override per-object methods
 
 =head1 DESCRIPTION
 
-This module allows Ruby (and JavaScript) style "singleton methods" to be added to Perl objects.
-Singleton methods are added to an object-specific shim class (the object's C<eigenclass>) which
+This module allows objects to be extended with per-object methods in a similar manner to
+singleton methods in Ruby and object wrappers in JavaScript libraries such as jQuery.
+Object methods are added to an object-specific shim class (known as an `eigenclass`) which
 extends the object's original class. The original class is left unchanged.
-
-For more details on singleton methods, see here: http://madebydna.com/all/code/2011/06/24/eigenclasses-demystified.html
 
 =head2 EXPORT
 
 =head3 extend
 
 C<extend> takes an object and a hash or hashref of method names and method values (coderefs) and adds
-the methods to the object's eigenclass. The object is then blessed into the eigenclass and returned.
+the methods to the object's shim class. The object is then blessed into this class and returned.
 
 It can be used in standalone statements:
 
@@ -144,14 +143,14 @@ returns a hashref of method names/coderefs:
 
 =head3 EIGENCLASS
 
-Every extended object's eigenclass includes an additional (empty) class in its C<@ISA> which indicates
+Every extended object's shim class includes an additional (empty) class in its C<@ISA> which indicates
 that the object has been extended. This class name is accessible via the C<EIGENCLASS> method e.g.:
 
     if ($object->isa(Object::Extend->EIGENCLASS)) { ... } # object extended with object-specific methods
 
 =head1 VERSION
 
-0.1.0
+0.1.1
 
 =head1 SEE ALSO
 

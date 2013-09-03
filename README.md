@@ -3,11 +3,11 @@
 - [NAME](#name)
 - [SYNOPSIS](#synopsis)
 - [DESCRIPTION](#description)
-	- [EXPORT](#export)
-		- [extend](#extend)
-		- [with](#with)
-	- [METHODS](#methods)
-		- [EIGENCLASS](#eigenclass)
+        - [EXPORT](#export)
+                - [extend](#extend)
+                - [with](#with)
+        - [METHODS](#methods)
+                - [EIGENCLASS](#eigenclass)
 - [VERSION](#version)
 - [SEE ALSO](#see-also)
 - [AUTHOR](#author)
@@ -33,11 +33,11 @@ Object::Extend - add and override per-object methods
 
 ## DESCRIPTION
 
-This module allows Ruby (and JavaScript) style "singleton methods" to be added to Perl objects.
-Singleton methods are added to an object-specific shim class (the object's `eigenclass`) which
+This module allows objects to be extended with per-object methods in a similar manner to
+[singleton methods](http://madebydna.com/all/code/2011/06/24/eigenclasses-demystified.html)
+in Ruby and object wrappers in JavaScript libraries such as jQuery.
+Object methods are added to an object-specific shim class (known as an `eigenclass`) which
 extends the object's original class. The original class is left unchanged.
-
-For more details on singleton methods, see [here](http://madebydna.com/all/code/2011/06/24/eigenclasses-demystified.html).
 
 ### EXPORT
 
@@ -91,24 +91,25 @@ returns a hashref of method names/coderefs:
 
 #### EIGENCLASS
 
-Every extended object's eigenclass includes an additional class in its `@ISA` which indicates
+Every extended object's shim class includes an additional (empty) class in its `@ISA` which indicates
 that the object has been extended. This class name is accessible via the `EIGENCLASS` method e.g.:
 
     if ($object->isa(Object::Extend->EIGENCLASS)) { ... } # object extended with object-specific methods
 
 ## VERSION
 
-0.1.0
+0.1.1
 
 ## SEE ALSO
 
 - [Class::SingletonMethod](http://search.cpan.org/perldoc?Class::SingletonMethod)
 - [MooseX::SingletonMethod](http://search.cpan.org/perldoc?MooseX::SingletonMethod)
 - [MouseX::SingletonMethod](http://search.cpan.org/perldoc?MouseX::SingletonMethod)
+- [SingletonMethod](https://github.com/tom-lpsd/p5-singleton-method)
 
 ## AUTHOR
 
-[chocolateboy](mailto:chocolate@cpan.org)
+chocolateboy <chocolate@cpan.org>
 
 ## COPYRIGHT AND LICENSE
 
