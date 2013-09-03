@@ -147,6 +147,10 @@ that the object has been extended. This class name is accessible via the C<EIGEN
 
     if ($object->isa(Object::Extend->EIGENCLASS)) { ... } # object extended with object-specific methods
 
+=head1 VERSION
+
+0.0.1
+
 =head1 SEE ALSO
 
 =over
