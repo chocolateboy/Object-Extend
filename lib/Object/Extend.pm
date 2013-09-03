@@ -6,12 +6,14 @@ use warnings;
 use base qw(Exporter);
 use constant EIGENCLASS => sprintf('%s::_Eigenclass', __PACKAGE__);
 
+use Scalar::Util qw(refaddr);
+
 our @EXPORT_OK = qw(extend with);
-our $VERSION = '0.0.1';
+our $VERSION = '0.1.0';
 
 # given an object, return an object-specific class name
 sub _eigenclass($) {
-    sprintf '%s::_%0x', EIGENCLASS, $_[0];
+    sprintf '%s::_%0x', EIGENCLASS, refaddr($_[0]);
 }
 
 # install the supplied sub in the the supplied class.
@@ -31,7 +33,7 @@ sub _set_isa($$) {
     *{"$class\::ISA"} = $isa;
 }
 
-# helper sub to optionally make the syntax
+# dummy sub to optionally make the syntax
 # a bit more DSL-ish: extend $object => with ...
 sub with($) { $_[0] }
 
@@ -66,7 +68,7 @@ sub extend($;@) {
 
 =head1 NAME
 
-Object::Extend - add or override per-object methods
+Object::Extend - add and override per-object methods
 
 =head1 SYNOPSIS
 
@@ -142,14 +144,14 @@ returns a hashref of method names/coderefs:
 
 =head3 EIGENCLASS
 
-Every extended object's eigenclass includes an additional class in its C<@ISA> which indicates
+Every extended object's eigenclass includes an additional (empty) class in its C<@ISA> which indicates
 that the object has been extended. This class name is accessible via the C<EIGENCLASS> method e.g.:
 
     if ($object->isa(Object::Extend->EIGENCLASS)) { ... } # object extended with object-specific methods
 
 =head1 VERSION
 
-0.0.1
+0.1.0
 
 =head1 SEE ALSO
 

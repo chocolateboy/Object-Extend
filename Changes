@@ -1,4 +1,8 @@
 Revision history for Perl extension Object::Extend.
 
+0.1.0 Tue Sep 3 03:50:59 2013
+    - use Scalar::Util::refaddr to ensure eigenclass names aren't broken by overloading
+    - fix doc nit
+
 0.0.1 Mon Sep 2 21:37:07 2013
     - original version; created by h2xs 1.23 with options h2xs -AXn Object::Extend

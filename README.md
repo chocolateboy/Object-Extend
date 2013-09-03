@@ -15,7 +15,7 @@
 
 ## NAME
 
-Object::Extend - add or override per-object methods
+Object::Extend - add and override per-object methods
 
 ## SYNOPSIS
 
@@ -98,7 +98,7 @@ that the object has been extended. This class name is accessible via the `EIGENC
 
 ## VERSION
 
-0.0.1
+0.1.0
 
 ## SEE ALSO
 
