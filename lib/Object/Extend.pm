@@ -39,10 +39,17 @@ sub _eigenclass($$) {
     my ($object, $methods) = @_;
     my $class = ref($object);
     my $new = 1;
+
     my $key = do {
         no warnings qw(once);
+
         local $Storable::Deparse = 1;
-        freeze [ $class, %$methods ];
+
+        # XXX squashed bugs 1) sort hash keys
+        # 2) freeze the $hashref, not the %$hash!
+        local $Storable::canonical = 1;
+
+        freeze [ $class, $methods ];
     };
 
     my $eigenclass = $CACHE{$key};

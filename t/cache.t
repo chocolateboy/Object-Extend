@@ -10,7 +10,6 @@ use constant {
 };
 
 use Object::Extend qw(extend);
-use Scalar::Util qw(refaddr);
 use Test::More tests => 42;
 
 my $SINGLETON = Object::Extend->SINGLETON();

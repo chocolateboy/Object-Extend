@@ -3,7 +3,6 @@ Build
 MYMETA.json
 MYMETA.yml
 Makefile
-autobox.c
 blib/
 cover_db/
 nytprof*
