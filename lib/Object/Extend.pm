@@ -36,8 +36,7 @@ my %CACHE;
 # the object has been extended.
 
 sub _eigenclass($$) {
-    my ($object, $methods) = @_;
-    my $class = ref($object);
+    my ($class, $methods) = @_;
     my $new = 1;
 
     my $key = do {
@@ -62,7 +61,7 @@ sub _eigenclass($$) {
     }
 
     if ($new) {
-        if ($object->isa(SINGLETON)) {
+        if ($class->isa(SINGLETON)) {
             _set_isa($eigenclass, [ $class ]);
         } else {
             _set_isa($eigenclass, [ $class, SINGLETON ]);
@@ -116,8 +115,9 @@ sub _error($;@) {
 # sanity check the arguments to extend
 sub _validate(@) {
     my $object = shift;
+    my $class = blessed($object);
 
-    unless (blessed $object) {
+    unless ($class) {
         _error(
             "invalid 'object' parameter: expected blessed reference, got: %s",
             ref($object)
@@ -161,7 +161,7 @@ sub _validate(@) {
         }
     }
 
-    return ($object, $methods);
+    return ($object, $class, $methods);
 }
 
 # dummy sub to optionally make the syntax
@@ -181,10 +181,10 @@ sub with($) {
 
 # find/create an eigenclass for the object's class/methods and bless the object into it
 sub extend($;@) {
-    my ($object, $methods) = _validate(@_);
+    my ($object, $class, $methods) = _validate(@_);
 
     if (%$methods) {
-        my $eigenclass = _eigenclass($object, $methods);
+        my $eigenclass = _eigenclass($class, $methods);
         bless $object, $eigenclass;
     } # else return the original object unchanged
 
