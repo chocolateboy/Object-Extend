@@ -11,8 +11,8 @@ use constant {
 };
 
 use B qw(perlstring);
-use Carp qw(cluck confess);
-use Scalar::Util qw(blessed refaddr);
+use Carp qw(confess);
+use Scalar::Util qw(blessed);
 use Storable qw(freeze);
 
 our @EXPORT_OK = qw(extend with);
@@ -99,7 +99,8 @@ sub _set_isa($$) {
     *{"$class\::ISA"} = $isa;
 }
 
-# return true if $ref ISA $class - works with non-references, unblessed references and objects
+# return true if $ref ISA $class - works with non-references,
+# unblessed references and objects
 sub _isa($$) {
     my ($ref, $class) = @_;
     return blessed($ref) ? $ref->isa($class) : ref($ref) eq $class;
