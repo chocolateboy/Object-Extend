@@ -64,9 +64,8 @@ If a new object is needed it can be handled manually e.g.:
 
 Objects can be extended multiple times with new or overridden methods:
 
-    my $object = Foo->new;
-
     # call the original method
+    my $object = Foo->new;
     $object->foo;
 
     # override the original method

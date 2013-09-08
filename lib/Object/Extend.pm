@@ -37,8 +37,6 @@ my %CACHE;
 
 sub _eigenclass($$) {
     my ($class, $methods) = @_;
-    my $new = 1;
-
     my $key = do {
         no warnings qw(once);
 
@@ -52,6 +50,7 @@ sub _eigenclass($$) {
     };
 
     my $eigenclass = $CACHE{$key};
+    my $new = 1;
 
     if ($eigenclass) {
         $new = 0;
@@ -244,9 +243,8 @@ If a new object is needed it can be handled manually e.g.:
 
 Objects can be extended multiple times with new or overridden methods:
 
-    my $object = Foo->new;
-
     # call the original method
+    my $object = Foo->new;
     $object->foo;
 
     # override the original method
