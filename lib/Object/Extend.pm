@@ -78,7 +78,7 @@ sub _eigenclass($$) {
 # "extend" is a pretty clear statement of intent, so
 # we don't issue a warning if the sub already exists
 #
-# XXX if we used Sub::Exporter (or similar), we could
+# XXX if we used Exporter::Tiny, we could
 # allow the redefine warning to be enabled e.g.:
 #
 #     use Object::Extend extend => { warn_on_redefine => 1 };

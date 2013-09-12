@@ -27,7 +27,7 @@ sub recycle(;%) {
 
     for (1 .. ROUNDS) {
         my $object = bless {};
-        my $refaddr = sprintf('0x%x', refaddr($object));
+        my $refaddr = refaddr($object);
 
         if ($seen{$refaddr}) {
             $recycled = $object;
