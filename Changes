@@ -1,15 +1,13 @@
 Revision history for Perl extension Object::Extend.
 
-0.2.0 TBC
+0.2.0 Thu Sep 12 22:01:05 2013
     - rename EIGENCLASS -> SINGLETON
     - ensure correctness when ref addresses are recycled:
         - recycled.t
-    - reuse eigenclasses where safe:
+    - reuse eigenclasses when safe:
         - cache.t
     - ensure reblessed objects behave as expected:
         - rebless.t
-    - add parameter validation:
-        - validate.t
 
 0.1.1 Tue Sep 3 17:41:42 2013
     - doc cleanup
