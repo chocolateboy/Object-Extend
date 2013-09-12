@@ -3,4 +3,8 @@ lib/Object/Extend.pm
 Makefile.PL
 MANIFEST			This list of files
 README
+README.md
 t/all.t
+t/cache.t
+t/rebless.t
+t/recycled.t
