@@ -8,7 +8,6 @@ Revision history for Perl extension Object::Extend.
         - cache.t
     - ensure reblessed objects behave as expected:
         - rebless.t
-    - fix MANIFEST
 
 0.1.1 Tue Sep 3 17:41:42 2013
     - doc cleanup
