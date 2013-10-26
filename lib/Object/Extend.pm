@@ -1,6 +1,6 @@
 package Object::Extend;
 
-use 5.006;
+use 5.008;
 use strict;
 use warnings;
 use base qw(Exporter);
@@ -37,11 +37,11 @@ my %CACHE;
 
 sub _eigenclass($$) {
     my ($class, $methods) = @_;
+
     my $key = do {
         no warnings qw(once);
 
         local $Storable::Deparse = 1;
-
         # XXX squashed bugs 1) sort hash keys
         # 2) freeze the $hashref, not the %$hash!
         local $Storable::canonical = 1;
@@ -50,16 +50,11 @@ sub _eigenclass($$) {
     };
 
     my $eigenclass = $CACHE{$key};
-    my $new = 1;
 
-    if ($eigenclass) {
-        $new = 0;
-    } else {
+    unless ($eigenclass) {
         $eigenclass = sprintf '%s::_%x', SINGLETON, ++$ID;
         $CACHE{$key} = $eigenclass;
-    }
 
-    if ($new) {
         if ($class->isa(SINGLETON)) {
             _set_isa($eigenclass, [ $class ]);
         } else {
@@ -74,7 +69,7 @@ sub _eigenclass($$) {
     return $eigenclass;
 }
 
-# install the supplied sub in the the supplied class.
+# install the supplied sub in the supplied class.
 # "extend" is a pretty clear statement of intent, so
 # we don't issue a warning if the sub already exists
 #
@@ -203,12 +198,12 @@ Object::Extend - add and override per-object methods
     my $foo1 = Foo->new;
     my $foo2 = Foo->new;
 
-    extend $foo2 => {
+    extend $foo1 => {
         bar => sub { ... },
     };
 
-    $foo1->bar; # error
-    $foo2->bar; # OK
+    $foo1->bar; # OK
+    $foo2->bar; # error
 
 =head1 DESCRIPTION
 
@@ -233,7 +228,7 @@ Or expressions:
     return extend($object => { bar => sub { ... } })->bar;
 
 In both cases, C<extend> operates on and returns the supplied object i.e. a new object is never created.
-If a new object is needed it can be handled manually e.g.:
+If a new object is needed it can be created manually e.g.:
 
     my $object2 = Object->new($object1);
     my $object3 = clone($object1);

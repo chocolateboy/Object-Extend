@@ -11,8 +11,8 @@ sub bar { 'Bar::bar' };
 package main;
 
 use constant {
-    BAR   => { bar => sub { 'bar' } },
-    BAZ   => { baz => sub { 'baz' } },
+    BAR => { bar => sub { 'bar' } },
+    BAZ => { baz => sub { 'baz' } },
 };
 
 use Object::Extend qw(extend);

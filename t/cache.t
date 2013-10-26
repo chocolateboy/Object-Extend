@@ -4,9 +4,9 @@ use strict;
 use warnings;
 
 use constant {
-    FOO         => { foo => sub { 'Foo' } },
-    BAR         => { bar => sub { 'Bar' } },
-    BAZ         => { baz => sub { 'Baz' } },
+    FOO => { foo => sub { 'Foo' } },
+    BAR => { bar => sub { 'Bar' } },
+    BAZ => { baz => sub { 'Baz' } },
 };
 
 use Object::Extend qw(extend);
