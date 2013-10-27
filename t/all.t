@@ -17,7 +17,7 @@ use Test::More tests => 125;
 # do this at compile time so that we don't get
 # "Useless use of anonymous hash ({}) in void context"
 # warnings
-BEGIN { use_ok 'Object::Extend' => qw(extend with) }
+BEGIN { use_ok 'Object::Extend' => qw(extend with SINGLETON) }
 
 # try to break things with operator overloading: we need to
 # make sure these don't confuse the code that assigns each
@@ -45,12 +45,12 @@ sub check_methods($;$) {
 
     if ($extended) {
         isnt ref($object), __PACKAGE__;
-        isa_ok $object, Object::Extend->SINGLETON;
+        isa_ok $object, SINGLETON;
         is $object->baz, 'Baz';
         is $object->quux, 'Quux';
     } else {
         is ref($object), __PACKAGE__;
-        ok !$object->isa(Object::Extend->SINGLETON);
+        ok !$object->isa(SINGLETON);
         ok !$object->can('baz');
         ok !$object->can('quux');
     }

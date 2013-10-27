@@ -10,11 +10,9 @@ use constant {
     ROUNDS      => 1000,
 };
 
-use Object::Extend qw(extend);
+use Object::Extend qw(extend SINGLETON);
 use Scalar::Util qw(refaddr);
 use Test::More tests => 31;
-
-my $SINGLETON = Object::Extend->SINGLETON();
 
 sub foo { 'Foo' }
 
@@ -57,7 +55,7 @@ SKIP: {
     skip NO_RECYCLED, 5 unless ($recycled);
     isa_ok $recycled, __PACKAGE__;
     can_ok $recycled, 'foo';
-    ok !$recycled->isa($SINGLETON);
+    ok !$recycled->isa(SINGLETON);
     ok !$recycled->can('bar');
     ok !$recycled->can('baz');
 };
@@ -69,7 +67,7 @@ SKIP: {
     skip NO_RECYCLED, 5 unless ($recycled);
     isa_ok $recycled, __PACKAGE__;
     can_ok $recycled, 'foo';
-    ok !$recycled->isa($SINGLETON);
+    ok !$recycled->isa(SINGLETON);
     ok !$recycled->can('bar');
     ok !$recycled->can('baz');
 };
@@ -80,7 +78,7 @@ SKIP: {
     my $recycled = recycle(recycled => BAR);
     skip NO_RECYCLED, 5 unless ($recycled);
     isa_ok $recycled, __PACKAGE__;
-    isa_ok $recycled, $SINGLETON;
+    isa_ok $recycled, SINGLETON;
     can_ok $recycled, 'foo';
     can_ok $recycled, 'bar';
     ok !$recycled->can('baz');
@@ -92,7 +90,7 @@ SKIP: {
     my $recycled = recycle(original => BAR, recycled => BAR);
     skip NO_RECYCLED, 5 unless ($recycled);
     isa_ok $recycled, __PACKAGE__;
-    isa_ok $recycled, $SINGLETON;
+    isa_ok $recycled, SINGLETON;
     can_ok $recycled, 'foo';
     can_ok $recycled, 'bar';
     ok !$recycled->can('baz');
@@ -104,7 +102,7 @@ SKIP: {
     my $recycled = recycle(original => BAR, recycled => { bar => sub { 'Bar 2' } });
     skip NO_RECYCLED, 6 unless ($recycled);
     isa_ok $recycled, __PACKAGE__;
-    isa_ok $recycled, $SINGLETON;
+    isa_ok $recycled, SINGLETON;
     can_ok $recycled, 'foo';
     can_ok $recycled, 'bar';
     ok !$recycled->can('baz');
@@ -117,7 +115,7 @@ SKIP: {
     my $recycled = recycle(original => BAR, recycled => BAZ);
     skip NO_RECYCLED, 5 unless ($recycled);
     isa_ok $recycled, __PACKAGE__;
-    isa_ok $recycled, $SINGLETON;
+    isa_ok $recycled, SINGLETON;
     can_ok $recycled, 'foo';
     can_ok $recycled, 'baz';
     ok !$recycled->can('bar');

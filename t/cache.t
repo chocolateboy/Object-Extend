@@ -9,17 +9,15 @@ use constant {
     BAZ => { baz => sub { 'Baz' } },
 };
 
-use Object::Extend qw(extend);
+use Object::Extend qw(extend SINGLETON);
 use Test::More tests => 42;
-
-my $SINGLETON = Object::Extend->SINGLETON();
 
 my $object = {};
 
 bless $object;
 extend $object, FOO;
 isa_ok $object, __PACKAGE__;
-isa_ok $object, $SINGLETON;
+isa_ok $object, SINGLETON;
 can_ok $object, 'foo';
 ok !$object->can('bar');
 ok !$object->can('baz');
@@ -28,7 +26,7 @@ my $foo_eigenclass = ref($object);
 bless $object;
 extend $object, BAR;
 isa_ok $object, __PACKAGE__;
-isa_ok $object, $SINGLETON;
+isa_ok $object, SINGLETON;
 can_ok $object, 'bar';
 ok !$object->can('foo');
 ok !$object->can('baz');
@@ -37,7 +35,7 @@ my $bar_eigenclass = ref($object);
 bless $object;
 extend $object, %{FOO()}, %{BAR()};
 isa_ok $object, __PACKAGE__;
-isa_ok $object, $SINGLETON;
+isa_ok $object, SINGLETON;
 can_ok $object, 'foo';
 can_ok $object, 'bar';
 my $foo_bar_eigenclass = ref($object);

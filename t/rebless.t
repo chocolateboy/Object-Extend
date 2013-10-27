@@ -15,10 +15,8 @@ use constant {
     BAZ => { baz => sub { 'baz' } },
 };
 
-use Object::Extend qw(extend);
+use Object::Extend qw(extend SINGLETON);
 use Test::More tests => 40;
-
-my $SINGLETON = Object::Extend->SINGLETON();
 
 sub foo { 'main::foo' }
 
@@ -28,7 +26,7 @@ sub foo { 'main::foo' }
 # start with a normal class instance
 my $object = bless {};
 isa_ok $object, __PACKAGE__;
-ok !$object->isa($SINGLETON);
+ok !$object->isa(SINGLETON);
 can_ok $object, 'foo';
 is $object->foo, 'main::foo';
 ok !$object->can('bar');
@@ -37,7 +35,7 @@ ok !$object->can('bar');
 extend $object => BAR;
 my $old_eigenclass = ref($object);
 isa_ok $object, __PACKAGE__;
-isa_ok $object, $SINGLETON;
+isa_ok $object, SINGLETON;
 can_ok $object, 'foo';
 can_ok $object, 'bar';
 is $object->foo, 'main::foo';
@@ -49,7 +47,7 @@ is $object->bar, 'bar';
 bless $object, 'Bar';
 isa_ok $object, 'Bar';
 ok !$object->isa(__PACKAGE__);
-ok !$object->isa($SINGLETON);
+ok !$object->isa(SINGLETON);
 can_ok $object, 'foo';
 can_ok $object, 'bar';
 is $object->foo, 'Bar::foo';
@@ -59,7 +57,7 @@ is $object->bar, 'Bar::bar';
 # bless the object back into its old eigenclass
 bless $object, $old_eigenclass;
 isa_ok $object, __PACKAGE__;
-isa_ok $object, $SINGLETON;
+isa_ok $object, SINGLETON;
 can_ok $object, 'foo';
 can_ok $object, 'bar';
 is $object->foo, 'main::foo';
@@ -70,7 +68,7 @@ is $object->bar, 'bar';
 bless $object, 'Bar';
 isa_ok $object, 'Bar';
 ok !$object->isa(__PACKAGE__);
-ok !$object->isa($SINGLETON);
+ok !$object->isa(SINGLETON);
 can_ok $object, 'foo';
 can_ok $object, 'bar';
 is $object->foo, 'Bar::foo';
@@ -83,7 +81,7 @@ is $object->bar, 'Bar::bar';
 extend $object => %{BAR()}, %{BAZ()};
 isa_ok $object, 'Bar';
 ok !$object->isa(__PACKAGE__);
-isa_ok $object, $SINGLETON;
+isa_ok $object, SINGLETON;
 can_ok $object, 'foo';
 can_ok $object, 'bar';
 can_ok $object, 'baz';

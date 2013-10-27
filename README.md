@@ -6,7 +6,6 @@
     - [EXPORTS](#exports)
         - [extend](#extend)
         - [with](#with)
-    - [METHODS](#methods)
         - [SINGLETON](#singleton)
 - [VERSION](#version)
 - [SEE ALSO](#see-also)
@@ -85,14 +84,15 @@ returns a hashref of method names/coderefs:
 
     extend $object => with { foo => sub { ... } };
 
-### METHODS
-
 #### SINGLETON
 
 Every extended object's shim class includes an additional (empty) class in its `@ISA` which indicates
-that the object has been extended. The name of this class can be accessed via the `SINGLETON` method e.g.:
+that the object has been extended. The name of this class can be accessed via the `SINGLETON` constant
+e.g.:
 
-    if ($object->isa(Object::Extend->SINGLETON)) { ... } # object extended with object-specific methods
+    use Object::Extend qw(SINGLETON);
+
+    if ($object->isa(SINGLETON)) { ... } # object extended with object-specific methods
 
 ## VERSION
 
