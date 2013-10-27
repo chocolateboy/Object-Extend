@@ -1,7 +1,7 @@
 Revision history for Perl extension Object::Extend.
 
 0.4.0 Sun Oct 27 02:07:03 2013
-    - allow the SINGLETON class name to be imported
+    - allow SINGLETON to be imported
 
 0.3.0 Sun Oct 27 00:27:51 2013
     - bump minimum perl version to 5.8.0
