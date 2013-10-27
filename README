@@ -1,4 +1,4 @@
-Object-Extend version 0.3.0
+Object-Extend version 0.4.0
 ===========================
 
 This module allows objects to be extended with per-object methods, similar to the use of

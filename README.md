@@ -87,8 +87,8 @@ returns a hashref of method names/coderefs:
 #### SINGLETON
 
 Every extended object's shim class includes an additional (empty) class in its `@ISA` which indicates
-that the object has been extended. The name of this class can be accessed via the `SINGLETON` constant
-e.g.:
+that the object has been extended. The name of this class can be accessed by importing the `SINGLETON`
+constant e.g.:
 
     use Object::Extend qw(SINGLETON);
 
@@ -96,7 +96,7 @@ e.g.:
 
 ## VERSION
 
-0.3.0
+0.4.0
 
 ## SEE ALSO
 

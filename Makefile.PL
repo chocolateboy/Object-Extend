@@ -15,6 +15,7 @@ WriteMakefile(
     },
     ABSTRACT_FROM  => 'lib/Object/Extend.pm',
     AUTHOR         => 'chocolateboy <chocolate@cpan.org>',
+    ($EUMM_VERSION >= 6.48 ? (MIN_PERL_VERSION => '5.8.0') : ()),
     ($EUMM_VERSION >= 6.31 ? (LICENSE => 'perl') : ()),
     ($EUMM_VERSION >= 6.46 ?
         (META_MERGE => {
@@ -23,6 +24,7 @@ WriteMakefile(
             },
             resources => {
                 repository => 'https://github.com/chocolateboy/Object-Extend',
+                bugtracker => 'https://github.com/chocolateboy/Object-Extend/issues',
             },
         }) : ()
     ),
