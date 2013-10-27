@@ -1,7 +1,7 @@
 Revision history for Perl extension Object::Extend.
 
 0.3.0 Sun Oct 27 00:27:51 2013
-    - bump minimum version to 5.8.0
+    - bump minimum perl version to 5.8.0
 
 0.2.0 Thu Sep 12 22:01:05 2013
     - rename EIGENCLASS -> SINGLETON

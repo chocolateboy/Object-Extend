@@ -24,12 +24,12 @@ Object::Extend - add and override per-object methods
     my $foo1 = Foo->new;
     my $foo2 = Foo->new;
 
-    extend $foo2 => {
+    extend $foo1 => {
         bar => sub { ... },
     };
 
-    $foo1->bar; # error
-    $foo2->bar; # OK
+    $foo1->bar; # OK
+    $foo2->bar; # error
 
 ## DESCRIPTION
 
@@ -54,7 +54,7 @@ Or expressions:
     return extend($object => { bar => sub { ... } })->bar;
 
 In both cases, `extend` operates on and returns the supplied object i.e. a new object is never created.
-If a new object is needed it can be handled manually e.g.:
+If a new object is needed, it can be created manually e.g.:
 
     my $object2 = Object->new($object1);
     my $object3 = clone($object1);
@@ -96,7 +96,7 @@ that the object has been extended. The name of this class can be accessed via th
 
 ## VERSION
 
-0.2.0
+0.3.0
 
 ## SEE ALSO
 

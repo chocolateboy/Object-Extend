@@ -16,7 +16,7 @@ use Scalar::Util qw(blessed);
 use Storable qw(freeze);
 
 our @EXPORT_OK = qw(extend with);
-our $VERSION = '0.2.0';
+our $VERSION = '0.3.0';
 
 my $ID = 0;
 my %CACHE;
@@ -228,7 +228,7 @@ Or expressions:
     return extend($object => { bar => sub { ... } })->bar;
 
 In both cases, C<extend> operates on and returns the supplied object i.e. a new object is never created.
-If a new object is needed it can be created manually e.g.:
+If a new object is needed, it can be created manually e.g.:
 
     my $object2 = Object->new($object1);
     my $object3 = clone($object1);
@@ -270,7 +270,7 @@ that the object has been extended. The name of this class can be accessed via th
 
 =head1 VERSION
 
-0.2.0
+0.3.0
 
 =head1 SEE ALSO
 
