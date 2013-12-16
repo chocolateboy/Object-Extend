@@ -100,9 +100,11 @@ constant e.g.:
 
 ## SEE ALSO
 
+- [Class::Monadic](http://search.cpan.org/perldoc?Class::Monadic)
 - [Class::SingletonMethod](http://search.cpan.org/perldoc?Class::SingletonMethod)
 - [MooseX::SingletonMethod](http://search.cpan.org/perldoc?MooseX::SingletonMethod)
 - [MouseX::SingletonMethod](http://search.cpan.org/perldoc?MouseX::SingletonMethod)
+- [Object::Accessor](http://search.cpan.org/perldoc?Object::Accessor)
 - [SingletonMethod](https://github.com/tom-lpsd/p5-singleton-method)
 
 ## AUTHOR
