@@ -25,7 +25,7 @@ my %CACHE;
 #
 # Eigenclasses are immutable i.e. once an eigenclass has been created,
 # its @ISA and installed methods never change. This means we can reuse/recycle
-# an eigenclass if we're passed the same superclass/methods combo.
+# an eigenclass if we're passed the same class/methods combo.
 #
 # Note: we need to identify the subs in the method hash by value (deparse)
 # rather than by reference (refaddr), since ref addresses can be recycled
@@ -277,11 +277,15 @@ constant e.g.:
 
 =over
 
+=item * L<Class::Monadic|Class::Monadic>
+
 =item * L<Class::SingletonMethod|Class::SingletonMethod>
 
 =item * L<MooseX::SingletonMethod|MooseX::SingletonMethod>
 
 =item * L<MouseX::SingletonMethod|MouseX::SingletonMethod>
+
+=item * L<Object::Accessor|Object::Accessor>
 
 =item * L<SingletonMethod|https://github.com/tom-lpsd/p5-singleton-method>
 
