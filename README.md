@@ -135,7 +135,7 @@ if ($object->isa(SINGLETON)) { ... } # object extended with object-specific meth
 
 # COPYRIGHT AND LICENSE
 
-Copyright (C) 2013 by chocolateboy
+Copyright © 2013 by chocolateboy
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.14.2 or,
