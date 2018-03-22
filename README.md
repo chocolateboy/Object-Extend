@@ -1,5 +1,8 @@
 # Object::Extend
 
+[![CPAN version](https://badge.fury.io/pl/Object-Extend.svg)](http://badge.fury.io/pl/Object-Extend)
+[![build status](https://secure.travis-ci.org/chocolateboy/Object-Extend.svg)](http://travis-ci.org/chocolateboy/Object-Extend)
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
