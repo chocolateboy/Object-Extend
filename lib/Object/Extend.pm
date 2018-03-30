@@ -299,7 +299,7 @@ chocolateboy <chocolate@cpan.org>
 
 Copyright (c) 2013 by chocolateboy.
 
-This is free software; you can redistribute it and/or modify it under the
-terms of the Artistic License 2.0.
+This library is free software; you can redistribute it and/or modify it under the
+terms of the L<Artistic License 2.0|http://www.opensource.org/licenses/artistic-license-2.0.php>.
 
 =cut
