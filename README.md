@@ -2,7 +2,6 @@
 
 [![Build Status](https://secure.travis-ci.org/chocolateboy/Object-Extend.svg)](http://travis-ci.org/chocolateboy/Object-Extend)
 [![CPAN Version](https://badge.fury.io/pl/Object-Extend.svg)](http://badge.fury.io/pl/Object-Extend)
-[![License](https://img.shields.io/badge/license-artistic-blue.svg)](https://github.com/chocolateboy/Object-Extend/blob/master/LICENSE.md)
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
