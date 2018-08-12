@@ -122,11 +122,11 @@ if ($object->isa(SINGLETON)) { ... } # object extended with object-specific meth
 
 # SEE ALSO
 
-* [Class::Monadic](http://search.cpan.org/perldoc?Class::Monadic)
-* [Class::SingletonMethod](http://search.cpan.org/perldoc?Class::SingletonMethod)
-* [MooseX::SingletonMethod](http://search.cpan.org/perldoc?MooseX::SingletonMethod)
-* [MouseX::SingletonMethod](http://search.cpan.org/perldoc?MouseX::SingletonMethod)
-* [Object::Accessor](http://search.cpan.org/perldoc?Object::Accessor)
+* [Class::Monadic](https://metacpan.org/pod/Class::Monadic)
+* [Class::SingletonMethod](https://metacpan.org/pod/Class::SingletonMethod)
+* [MooseX::SingletonMethod](https://metacpan.org/pod/MooseX::SingletonMethod)
+* [MouseX::SingletonMethod](https://metacpan.org/pod/MouseX::SingletonMethod)
+* [Object::Accessor](https://metacpan.org/pod/Object::Accessor)
 * [SingletonMethod](https://github.com/tom-lpsd/p5-singleton-method)
 
 # AUTHOR
