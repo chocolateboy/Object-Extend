@@ -1,10 +1,9 @@
 # Object::Extend
 
-[![Build Status](https://secure.travis-ci.org/chocolateboy/Object-Extend.svg)](http://travis-ci.org/chocolateboy/Object-Extend)
-[![CPAN Version](https://badge.fury.io/pl/Object-Extend.svg)](http://badge.fury.io/pl/Object-Extend)
+[![Build Status](https://travis-ci.org/chocolateboy/Object-Extend.svg)](https://travis-ci.org/chocolateboy/Object-Extend)
+[![CPAN Version](https://badge.fury.io/pl/Object-Extend.svg)](https://badge.fury.io/pl/Object-Extend)
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- toc -->
 
 - [NAME](#name)
 - [SYNOPSIS](#synopsis)
@@ -18,7 +17,7 @@
 - [AUTHOR](#author)
 - [COPYRIGHT AND LICENSE](#copyright-and-license)
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+<!-- tocstop -->
 
 # NAME
 
@@ -42,17 +41,19 @@ $foo2->bar; # error
 
 # DESCRIPTION
 
-This module allows objects to be extended with per-object methods, similar to the use of
-[singleton methods](http://madebydna.com/all/code/2011/06/24/eigenclasses-demystified.html)
-in Ruby. Object methods are added to an object-specific shim class (known as an `eigenclass`),
-which extends the object's original class. The original class is left unchanged.
+This module allows objects to be extended with per-object methods, similar to
+the use of [singleton methods](https://web.archive.org/web/20160319051340/http://madebydna.com/all/code/2011/06/24/eigenclasses-demystified.html)
+in Ruby. Object methods are added to an object-specific shim class (known as an
+`eigenclass`), which extends the object's original class. The original class is
+left unchanged.
 
 # EXPORTS
 
 ## extend
 
-`extend` takes an object and a hash or hashref of method names and method values (coderefs) and adds
-the methods to the object's shim class. The object is then blessed into this class and returned.
+`extend` takes an object and a hash or hashref of method names and method
+values (coderefs) and adds the methods to the object's shim class. The object
+is then blessed into this class and returned.
 
 It can be used in standalone statements:
 
@@ -66,8 +67,9 @@ Or expressions:
 return extend($object => { bar => sub { ... } })->bar;
 ```
 
-In both cases, `extend` operates on and returns the supplied object i.e. a new object is never created.
-If a new object is needed, it can be created manually e.g.:
+In both cases, `extend` operates on and returns the supplied object i.e. a new
+object is never created. If a new object is needed, it can be created manually
+e.g.:
 
 ```perl
 my $object2 = Object->new($object1);
@@ -95,8 +97,8 @@ $object->bar;
 
 ## with
 
-This sub can optionally be imported to make the use of `extend` more descriptive. It takes and
-returns a hashref of method names/coderefs:
+This sub can optionally be imported to make the use of `extend` more
+descriptive. It takes and returns a hashref of method names/coderefs:
 
 ```perl
 use Object::Extend qw(extend with);
@@ -106,9 +108,9 @@ extend $object => with { foo => sub { ... } };
 
 ## SINGLETON
 
-Every extended object's shim class includes an additional (empty) class in its `@ISA` which indicates
-that the object has been extended. The name of this class can be accessed by importing the `SINGLETON`
-constant e.g.:
+Every extended object's shim class includes an additional (empty) class in its
+`@ISA` which indicates that the object has been extended. The name of this
+class can be accessed by importing the `SINGLETON` constant e.g.:
 
 ```perl
 use Object::Extend qw(SINGLETON);
@@ -122,12 +124,12 @@ if ($object->isa(SINGLETON)) { ... } # object extended with object-specific meth
 
 # SEE ALSO
 
-* [Class::Monadic](https://metacpan.org/pod/Class::Monadic)
-* [Class::SingletonMethod](https://metacpan.org/pod/Class::SingletonMethod)
-* [MooseX::SingletonMethod](https://metacpan.org/pod/MooseX::SingletonMethod)
-* [MouseX::SingletonMethod](https://metacpan.org/pod/MouseX::SingletonMethod)
-* [Object::Accessor](https://metacpan.org/pod/Object::Accessor)
-* [SingletonMethod](https://github.com/tom-lpsd/p5-singleton-method)
+- [Class::Monadic](https://metacpan.org/pod/Class::Monadic)
+- [Class::SingletonMethod](https://metacpan.org/pod/Class::SingletonMethod)
+- [MooseX::SingletonMethod](https://metacpan.org/pod/MooseX::SingletonMethod)
+- [MouseX::SingletonMethod](https://metacpan.org/pod/MouseX::SingletonMethod)
+- [Object::Accessor](https://metacpan.org/pod/Object::Accessor)
+- [SingletonMethod](https://github.com/tom-lpsd/p5-singleton-method)
 
 # AUTHOR
 
@@ -135,7 +137,7 @@ if ($object->isa(SINGLETON)) { ... } # object extended with object-specific meth
 
 # COPYRIGHT AND LICENSE
 
-Copyright © 2013 by chocolateboy.
+Copyright © 2013-2020 by chocolateboy.
 
 This is free software; you can redistribute it and/or modify it under the terms of the
-[Artistic License 2.0](http://www.opensource.org/licenses/artistic-license-2.0.php).
+[Artistic License 2.0](https://www.opensource.org/licenses/artistic-license-2.0.php).

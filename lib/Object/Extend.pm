@@ -208,7 +208,7 @@ Object::Extend - add and override per-object methods
 =head1 DESCRIPTION
 
 This module allows objects to be extended with per-object methods, similar to the use of
-L<singleton methods|http://madebydna.com/all/code/2011/06/24/eigenclasses-demystified.html>
+L<singleton methods|https://web.archive.org/web/20160319051340/http://madebydna.com/all/code/2011/06/24/eigenclasses-demystified.html>
 in Ruby. Object methods are added to an object-specific shim class (known as an C<eigenclass>),
 which extends the object's original class. The original class is left unchanged.
 
@@ -300,6 +300,6 @@ chocolateboy <chocolate@cpan.org>
 Copyright (c) 2013 by chocolateboy.
 
 This library is free software; you can redistribute it and/or modify it under the
-terms of the L<Artistic License 2.0|http://www.opensource.org/licenses/artistic-license-2.0.php>.
+terms of the L<Artistic License 2.0|https://www.opensource.org/licenses/artistic-license-2.0.php>.
 
 =cut
