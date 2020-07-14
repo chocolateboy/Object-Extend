@@ -297,7 +297,7 @@ chocolateboy <chocolate@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (c) 2013 by chocolateboy.
+Copyright (c) 2013-2020 by chocolateboy.
 
 This library is free software; you can redistribute it and/or modify it under the
 terms of the L<Artistic License 2.0|https://www.opensource.org/licenses/artistic-license-2.0.php>.
