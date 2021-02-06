@@ -1,9 +1,9 @@
 # Object::Extend
 
-[![Build Status](https://travis-ci.org/chocolateboy/Object-Extend.svg)](https://travis-ci.org/chocolateboy/Object-Extend)
+[![Build Status](https://github.com/chocolateboy/Object-Extend/workflows/test/badge.svg)](https://github.com/chocolateboy/Object-Extend/actions?query=workflow%3Atest)
 [![CPAN Version](https://badge.fury.io/pl/Object-Extend.svg)](https://badge.fury.io/pl/Object-Extend)
 
-<!-- toc -->
+<!-- TOC -->
 
 - [NAME](#name)
 - [SYNOPSIS](#synopsis)
@@ -17,7 +17,7 @@
 - [AUTHOR](#author)
 - [COPYRIGHT AND LICENSE](#copyright-and-license)
 
-<!-- tocstop -->
+<!-- TOC END -->
 
 # NAME
 
