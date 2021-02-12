@@ -23,7 +23,7 @@ my %CACHE;
 
 # find/create a unique class name for the supplied object's class/methods combination.
 #
-# Eigenclasses are immutable i.e. once an eigenclass has been created,
+# Eigenclasses are immutable, i.e. once an eigenclass has been created,
 # its @ISA and installed methods never change. This means we can reuse/recycle
 # an eigenclass if we're passed the same class/methods combo.
 #
@@ -74,7 +74,7 @@ sub _eigenclass($$) {
 # we don't issue a warning if the sub already exists
 #
 # XXX if we used Exporter::Tiny, we could
-# allow the redefine warning to be enabled e.g.:
+# allow the redefine warning to be enabled, e.g.:
 #
 #     use Object::Extend extend => { warn_on_redefine => 1 };
 
@@ -227,8 +227,8 @@ Or expressions:
 
     return extend($object => { bar => sub { ... } })->bar;
 
-In both cases, C<extend> operates on and returns the supplied object i.e. a new object is never created.
-If a new object is needed, it can be created manually e.g.:
+In both cases, C<extend> operates on and returns the supplied object, i.e. a new object is never created.
+If a new object is needed, it can be created manually, e.g.:
 
     my $object2 = Object->new($object1);
     my $object3 = clone($object1);
@@ -263,7 +263,7 @@ returns a hashref of method names/coderefs:
 
 Every extended object's shim class includes an additional (empty) class in its C<@ISA> which indicates
 that the object has been extended. The name of this class can be accessed by importing the C<SINGLETON>
-constant e.g.:
+constant, e.g.:
 
     use Object::Extend qw(SINGLETON);
 

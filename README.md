@@ -67,8 +67,8 @@ Or expressions:
 return extend($object => { bar => sub { ... } })->bar;
 ```
 
-In both cases, `extend` operates on and returns the supplied object i.e. a new
-object is never created. If a new object is needed, it can be created manually
+In both cases, `extend` operates on and returns the supplied object, i.e. a new
+object is never created. If a new object is needed, it can be created manually,
 e.g.:
 
 ```perl
@@ -110,7 +110,7 @@ extend $object => with { foo => sub { ... } };
 
 Every extended object's shim class includes an additional (empty) class in its
 `@ISA` which indicates that the object has been extended. The name of this
-class can be accessed by importing the `SINGLETON` constant e.g.:
+class can be accessed by importing the `SINGLETON` constant, e.g.:
 
 ```perl
 use Object::Extend qw(SINGLETON);
